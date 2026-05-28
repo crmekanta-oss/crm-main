@@ -12,8 +12,6 @@ export function ViewDrawer({
 }) {
   const [status,           setStatus]           = useState(funnel.status);
   const [savedStatus,      setSavedStatus]      = useState(funnel.status); // tracks last committed status
-  const [showReasonPicker, setShowReasonPicker] = useState(false);
-  const [pendingStatus,    setPendingStatus]    = useState("");
   const [reason,           setReason]           = useState(funnel.lostDropReason || "");
   const [showWonPrompt,    setShowWonPrompt]    = useState(false);
   const [commentText,      setCommentText]      = useState("");
@@ -41,16 +39,8 @@ export function ViewDrawer({
 
   // Status change — local only until Save Status is clicked
   const doStatus = (s) => {
-    if ((s === "Lost" || s === "Drop") && s !== status) {
-      setPendingStatus(s); setShowReasonPicker(true);
-    } else {
-      setStatus(s);
-    }
-  };
-  const confirmStatus = () => {
-    setStatus(pendingStatus);
-    setShowReasonPicker(false);
-  };
+  setStatus(s);
+};
   const handleStatusClick = (s) => {
     if (s === "Won" && s !== status) {
       setStatus(s);
